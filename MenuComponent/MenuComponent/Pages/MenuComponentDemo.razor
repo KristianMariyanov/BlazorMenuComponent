@@ -1,0 +1,27 @@
+﻿@using MenuComponent.Data
+
+@namespace MenuComponent.Component
+
+@inject MenuItemsProvider provider
+
+@page "/demo"
+
+<h1>Menu Component Demo</h1>
+
+<h3>Selected id: @id</h3>
+<Menu Items="@items" OnSelect="Select"></Menu>
+
+@code {
+    List<MenuItem> items;
+
+    protected override async Task OnInitializedAsync()
+    {
+        items = await provider.GetItemsAsync();
+    }
+
+    string id = string.Empty;
+    void Select(string menuId)
+    {
+        id = menuId;
+    }
+}

@@ -1,0 +1,30 @@
+﻿@using MenuComponent.Data
+@inject MouseEventsService mouseEventsService
+@inject ClickEventBubblingResolver clickEventBubblingResolver
+
+<ul style="@(Visible ? "visibility:visible;" : "visibility:hidden;")" class="nav flex-column @(IsRoot ? "menu-root" : string.Empty)">
+    @foreach (var item in Items)
+    {
+        <li data-key="@item.Key"
+            class="nav-item menu-component-item @(item.Children?.Any() ?? false ? "has-children" : string.Empty)"
+            @onclick="@((e) => clickEventBubblingResolver.OnClick(item.Key, ParrentId, OnSelect))"
+            @onmouseover="((e) => mouseEventsService.OnMenuMouseOver(item.Key, e))"
+            @onmouseout="((e) => mouseEventsService.OnMenuMouseOut(item.Key, e))">
+
+            @item.Value
+
+            @if (item.Children?.Any() ?? false)
+            {
+                <Menu Items="item.Children" OnSelect="OnSelect" Visible="false" ParrentId="@item.Key" IsRoot="false"></Menu>
+            }
+        </li>
+    }
+</ul>
+
+@code {
+    [Parameter] public IEnumerable<MenuItem> Items { get; set; }
+    [Parameter] public EventCallback<string> OnSelect { get; set; }
+    [Parameter] public string ParrentId { get; set; }
+    [Parameter] public bool Visible { get; set; } = true;
+    [Parameter] public bool IsRoot { get; set; } = true;
+}
