@@ -109,8 +109,9 @@ app {
     min-width: 160px;
     max-width: 200px;
     padding: 5px;
+    padding-left: 20px;
     box-sizing: border-box;
-    text-align: center;
+    text-align: left;
     display: block;
     cursor: pointer;
     background-color: #FFF;
@@ -120,7 +121,7 @@ app {
     }
 
     .has-children:after {
-        margin-left: 10px;
+        margin-left: 80px;
         content: '\25BA';
     }
 
@@ -129,21 +130,8 @@ app {
         top: -2%;
         left: 100%;
         transition: visibility 1s, opacity 0.15s ease-out;
-        -webkit-box-shadow: 6px 6px 10px 0px rgba(119,119,119,1);
-        -moz-box-shadow: 6px 6px 10px 0px rgba(119,119,119,1);
-        box-shadow: 6px 6px 10px 0px rgba(119,119,119,1);
         width: 200px;
     }
-
-        .menu-component-item > ul:before {
-            position: absolute;
-            left: 10px;
-            height: 0;
-            width: 0;
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            border-left: 5px solid red;
-        }
 
 @media (max-width: 767.98px) {
     .main .top-row {
