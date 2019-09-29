@@ -10,10 +10,10 @@ namespace MenuComponent.Data
     /// </summary>
     public class ClickEventBubblingResolver
     {
-        private static readonly ConcurrentDictionary<string, bool> restrictedMenuItemEvents = new ConcurrentDictionary<string, bool>();
+        private static readonly ConcurrentDictionary<string, bool> RestrictedMenuItemEvents = new ConcurrentDictionary<string, bool>();
         public async Task OnClick(string menuId, string parrentMenuId, EventCallback<string> eventCallback)
         {
-            if (restrictedMenuItemEvents.ContainsKey(menuId))
+            if (RestrictedMenuItemEvents.ContainsKey(menuId))
             {
                 await TemporaryRestrictEventInvocation(parrentMenuId);
                 return;
@@ -29,13 +29,13 @@ namespace MenuComponent.Data
         {
             if (parrentMenuId != null)
             {
-                if (!restrictedMenuItemEvents.ContainsKey(parrentMenuId))
+                if (!RestrictedMenuItemEvents.ContainsKey(parrentMenuId))
                 {
-                    restrictedMenuItemEvents.TryAdd(parrentMenuId, true);
+                    RestrictedMenuItemEvents.TryAdd(parrentMenuId, true);
 
                     await Task.Delay(100);
 
-                    restrictedMenuItemEvents.TryRemove(parrentMenuId, out var _);
+                    RestrictedMenuItemEvents.TryRemove(parrentMenuId, out var _);
                 }
             }
         }
