@@ -6,7 +6,8 @@
     @foreach (var item in Items)
     {
         <li data-key="@item.Key"
-            class="nav-item menu-component-item @(item.Children?.Any() ?? false ? "has-children" : string.Empty)"
+            id="@item.Key"
+            class="nav-item menu-component-item @(item.Children?.Any() ?? false ? "has-children" : string.Empty) @(string.Join(' ', MenuItemHtmlClasses))"
             @onclick="@((e) => clickEventBubblingResolver.OnClick(item.Key, ParrentId, OnSelect))"
             @onmouseover="((e) => mouseEventsService.OnMenuMouseOver(item.Key, e))"
             @onmouseout="((e) => mouseEventsService.OnMenuMouseOut(item.Key, e))">
@@ -27,4 +28,5 @@
     [Parameter] public string ParrentId { get; set; }
     [Parameter] public bool Visible { get; set; } = true;
     [Parameter] public bool IsRoot { get; set; } = true;
+    [Parameter] public IEnumerable<string> MenuItemHtmlClasses { get; set; } = Enumerable.Empty<string>();
 }
