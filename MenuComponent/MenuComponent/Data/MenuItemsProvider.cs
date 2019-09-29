@@ -66,8 +66,6 @@ namespace MenuComponent.Data
                     Value = "Item 3"
                 }
             });
-
-            //var items = new List<MenuItem<MenuItem<string>>
         }
 
     }

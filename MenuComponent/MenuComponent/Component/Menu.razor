@@ -1,4 +1,6 @@
 ﻿@using MenuComponent.Data
+@using Microsoft.AspNetCore.Components 
+
 @inject MouseEventsService mouseEventsService
 @inject ClickEventBubblingResolver clickEventBubblingResolver
 
@@ -8,7 +10,7 @@
         <li data-key="@item.Key"
             id="@item.Key"
             class="nav-item menu-component-item @(item.Children?.Any() ?? false ? "has-children" : string.Empty) @(string.Join(' ', MenuItemHtmlClasses))"
-            @onclick="@((e) => clickEventBubblingResolver.OnClick(item.Key, ParrentId, OnSelect))"
+            @onclick="@((e) => clickEventBubblingResolver.OnClick(item.Key, ParentId, OnSelect))"
             @onmouseover="((e) => mouseEventsService.OnMenuMouseOver(item.Key, e))"
             @onmouseout="((e) => mouseEventsService.OnMenuMouseOut(item.Key, e))">
 
@@ -16,7 +18,7 @@
 
             @if (item.Children?.Any() ?? false)
             {
-                <Menu Items="item.Children" OnSelect="OnSelect" Visible="false" ParrentId="@item.Key" IsRoot="false"></Menu>
+                <Menu Items="item.Children" OnSelect="OnSelect" Visible="false" ParentId="@item.Key" IsRoot="false"></Menu>
             }
         </li>
     }
@@ -25,7 +27,7 @@
 @code {
     [Parameter] public IEnumerable<MenuItem> Items { get; set; }
     [Parameter] public EventCallback<string> OnSelect { get; set; }
-    [Parameter] public string ParrentId { get; set; }
+    [Parameter] public string ParentId { get; set; }
     [Parameter] public bool Visible { get; set; } = true;
     [Parameter] public bool IsRoot { get; set; } = true;
     [Parameter] public IEnumerable<string> MenuItemHtmlClasses { get; set; } = Enumerable.Empty<string>();
